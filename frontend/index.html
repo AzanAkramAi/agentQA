@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Simple Calculator</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2ff, #f8fafc);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .calculator {
+      width: 320px;
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+      padding: 20px;
+    }
+    .title {
+      margin: 0 0 16px;
+      text-align: center;
+      color: #1f2937;
+      font-size: 1.4rem;
+    }
+    .display {
+      width: 100%;
+      height: 64px;
+      border: none;
+      border-radius: 12px;
+      background: #f3f4f6;
+      margin-bottom: 16px;
+      padding: 12px;
+      font-size: 1.8rem;
+      text-align: right;
+      color: #111827;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    button {
+      height: 56px;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background: #e5e7eb;
+      color: #111827;
+      transition: transform 0.08s ease, background 0.2s ease;
+    }
+    button:hover { background: #d1d5db; }
+    button:active { transform: scale(0.97); }
+    .operator { background: #c7d2fe; }
+    .operator:hover { background: #a5b4fc; }
+    .equal {
+      background: #2563eb;
+      color: white;
+      grid-column: span 2;
+    }
+    .equal:hover { background: #1d4ed8; }
+    .clear {
+      background: #fecaca;
+    }
+    .clear:hover { background: #fca5a5; }
+    .zero {
+      grid-column: span 2;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <h1 class="title">Calculator</h1>
+    <input id="display" class="display" type="text" value="0" readonly />
+    <div class="buttons">
+      <button class="clear" onclick="clearDisplay()">C</button>
+      <button onclick="deleteLast()">⌫</button>
+      <button class="operator" onclick="appendValue('%')">%</button>
+      <button class="operator" onclick="appendValue('/')">÷</button>
+
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="appendValue('*')">×</button>
+
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button class="operator" onclick="appendValue('-')">−</button>
+
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <button class="zero" onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button class="equal" onclick="calculateResult()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function appendValue(value) {
+      if (display.value === '0' || display.value === 'Error') {
+        if ('+-*/%'.includes(value)) {
+          display.value += value;
+        } else {
+          display.value = value;
+        }
+      } else {
+        display.value += value;
+      }
+    }
+
+    function clearDisplay() {
+      display.value = '0';
+    }
+
+    function deleteLast() {
+      if (display.value === 'Error' || display.value.length <= 1) {
+        display.value = '0';
+        return;
+      }
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculateResult() {
+      try {
+        const expression = display.value;
+        const result = Function('return ' + expression)();
+        if (result === undefined || Number.isNaN(result) || !Number.isFinite(result)) {
+          display.value = 'Error';
+          return;
+        }
+        display.value = String(result);
+      } catch (error) {
+        display.value = 'Error';
+      }
+    }
+
+    document.addEventListener('keydown', (event) => {
+      const key = event.key;
+      if ((key >= '0' && key <= '9') || ['+', '-', '*', '/', '%', '.'].includes(key)) {
+        appendValue(key);
+      } else if (key === 'Enter' || key === '=') {
+        calculateResult();
+      } else if (key === 'Backspace') {
+        deleteLast();
+      } else if (key === 'Escape') {
+        clearDisplay();
+      }
+    });
+  </script>
+</body>
+</html>
