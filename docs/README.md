@@ -1,7 +1,11 @@
-# Docs Folder
+# Docs
 
-This folder contains documentation for the agentQA repository.
+This folder contains project documentation for the AgentQA calculator repository.
 
-Its purpose is to keep all project documentation in one place so contributors can quickly understand the system, its structure, setup steps, workflows, and future plans. Typical contents of this folder may include architecture notes, setup guides, API references, testing instructions, contribution guidelines, and design decisions.
+## Contents
+- Frontend overview and UI behavior.
+- Backend API behavior and supported operations.
+- Notes on how the frontend and backend work together.
 
-Keeping documentation inside the `docs` folder helps separate supporting written material from the application source code while making it easy to maintain alongside the project.
+## Project summary
+The calculator now supports standard arithmetic plus scientific functions including sine, cosine, tangent, square root, square, and cube.
