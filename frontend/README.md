@@ -1,7 +1,21 @@
-# Frontend Folder
+# Frontend
 
-This folder contains the frontend part of the application. Its purpose is to hold the user-facing interface, including pages, components, styling, and any client-side logic needed for users to interact with the system.
+This folder contains the calculator user interface.
 
-In general, the frontend folder is where code for the visual experience lives. It may include reusable UI components, layout files, assets, state management, and integration code that communicates with backend services or APIs.
+## What it does
+- Provides input fields for numbers.
+- Lets the user choose arithmetic and scientific operations.
+- Sends calculation requests to the backend API.
+- Displays the returned result in the browser.
 
-Keeping the frontend code in its own folder helps organize the repository clearly, separates presentation concerns from backend logic, and makes it easier to maintain and scale the user interface over time.
+## Supported operations
+- Addition
+- Subtraction
+- Multiplication
+- Division
+- Sine
+- Cosine
+- Tangent
+- Square root
+- Square
+- Cube
